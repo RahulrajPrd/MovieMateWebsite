@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Welcome to our site !
+{% endblock %}
+
+{% block content %}
+    <h1>We have following movies in our data base</h1>
+    <div class="container">
+
+        {% for title in titles %}
+            <p> {{ title }} </p>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

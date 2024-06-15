@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"> -->
+    <link rel="stylesheet" href="/static/style.css">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <header id="header">
+            <div class="logo">
+                <img src="/static/images/logo.png" height="75px">
+                <h2>MovieMate</h2>
+            </div>
+            <ul class="header-links">
+                <li><a href="{{ url_for('hello_world') }}">Home</a></li>
+                <li><a href="{{ url_for('recommend') }}">Recommend Me</a></li>
+                <li><a href="{{ url_for('questions') }}">Pick a movie</a></li>
+            </ul>
+
+            <!-- <div class="login">
+                <ul class="header-links">
+                    <li><a href="">Login</a></li>
+                    <li><a href="">Register</a></li>
+                </ul>
+            </div> -->
+    </header>
+    {% block content %}
+        
+    {% endblock %}
+</body>
+</html>

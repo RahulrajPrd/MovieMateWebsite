@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Recommendation
+{% endblock %}
+
+{% block content %}
+    <form action="/recommend" method="post">
+        <label for="user_input">Enter your preference:</label>
+        <input type="text" id="user_input" name="user_input">
+        <input type="submit" value="Get Recommendations">
+    </form>
+{% endblock %}

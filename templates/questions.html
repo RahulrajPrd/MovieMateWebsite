@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Pick a Movie 
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .movies-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 20px;
+    }
+
+    .movie-card {
+        width: 300px;
+        margin: 10px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        border-radius: 8px;
+        transition: transform 0.3s;
+    }
+
+    .movie-card:hover {
+        transform: scale(1.05);
+    }
+
+    .movie-title {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .movie-date {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .movie-overview {
+        font-size: 14px;
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+
+    .movie-poster {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+</style>
+    
+    <section id="body">
+        <h1>Movie Preferences</h1>
+        <form id="questionForm" method="POST" action="/questions">
+        <label for="mood">Question 1: How is your feeling today?</label>
+        <select name="mood" id="mood" required>
+            <option value="">--Select--</option>
+            <option value="Sad">Sad</option>
+            <option value="Happy">Happy</option>
+            <option value="Neutral">Neutral</option>
+        </select>
+        <br>
+
+        <label for="occasion">Question 2: What comes closest to your occasion?</label>
+        <select name="occasion" id="occasion" required>
+            <option value="">--Select--</option>
+            <option value="alone">Just watching a movie myself</option>
+            <option value="with_parents">Watching movies with parents</option>
+            <option value="with_friends">Movie night with friends</option>
+        </select>
+        <br>
+
+        <label>Question 3: Please choose any genre you’re interested in.</label>
+        <div class="option">
+            {% set genres_per_system = 3 %}
+            {% for genre in Generes %}
+                {% if loop.index % genres_per_system == 1 %}
+                    {% if loop.index != 1 %}
+                        </div> <!-- Close the previous system div -->
+                    {% endif %}
+                    <div class="system">
+                {% endif %}
+                <input type="checkbox" name="genre" id="{{ genre }}" value="{{ genre }}">
+                <label for="{{ genre }}">{{ genre }}</label>
+            {% endfor %}
+            </div>
+        </div>
+        
+        <br>
+
+        <label for="age">Question 4: How old would you like the movie to be?</label>
+        <select name="age" id="age" required>
+            <option value="not">Does not matter</option>
+            <option value="8">Published in the last 8 years</option>
+            <option value="10">Published in the last 10 years</option>
+            <option value="20">Published in the last 20 years</option>
+        </select>
+        <br>
+
+        <button type="submit">Submit</button>
+
+        <div class="movies-list">
+            {% if pickMeList %}
+                {% for movie in pickMeList %}
+                    <div class="movie-card">
+                        <img src="https://image.tmdb.org/t/p/w500/{{ movie['results'][0]['poster_path'] }}" alt="unknown" class="movie-poster">
+                        <h2 class="movie-title">{{ movie['results'][0]['title'] }}</h2>
+                        <h3 class="movie-date">{{ movie['results'][0]['release_date'] }}</h3>
+                        <p class="movie-overview">{{ movie['results'][0]['overview'] }}</p>
+                        <button style="background-color: #007BFF; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 5px;">
+                            <a href="https://www.imdb.com/find?q={{ movie['results'][0]['title'] }}"
+                        target="_blank" style="text-decoration: none; color: wheat;">Learn More</a>
+                        </button>                        
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        </form>
+    </section>
+
+   
+
+{% endblock %}

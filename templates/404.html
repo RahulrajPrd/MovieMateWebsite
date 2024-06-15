@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Recommendation
+{% endblock %}
+
+{% block content %}
+
+    <form action="/recommend" method="post" id="form">
+        <label for="user_input">Enter your preference:</label>
+        <input type="text" id="user_input" name="user_input">
+        <ul class="list" id="suggestions"></ul>
+        <input type="submit" value="Get Recommendations">
+    </form>
+
+
+    <div class="recommendation-container">
+        {% if ans %}
+            
+            {% for i in range(0,7) %}  
+            <div class="movie-card"> 
+                <img style="height: 400px;" src="{{ movie_banner[i] }}" class="movie-banner">
+                <h3 class="movie-title">{{ movie_details[i]['results'][0]['title'] }}</h3>
+                <p class="movie-overview">{{ movie_details[i]["results"][0]['overview'] }}</p>
+            </div>
+            {% endfor %}
+
+        {% endif %}
+    </div>
+
+    {% if error %}
+        {% if user_input %}
+            <p class="error-message">Sorry, "{{ user_input }}" movie is not available in our database</p>
+        {% else %}
+            <p class="error-message">Please provide a movie name</p>
+        {% endif %}
+    {% endif %}
+
+
+
+    <script src="/static/script.js"></script>
+{% endblock %}

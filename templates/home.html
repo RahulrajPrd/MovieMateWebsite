@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="homepage-title">Welcome to our <span class="highlight">Recommendations Engine</span></h1>
+
+    <div class="now-playing">
+        <h2 class="subheading">Now Playing in Cinemas</h2>
+
+        {% if data %}
+        <div class="movie-section">
+            {% for i in range(1,20) %}
+            <div class="movie-card">
+                <img class="movie-banner" style="height: 400px;" src="{{ images[i] }}" alt="">
+                <div class="movie-name">{{ data[i] }}</div>
+                <button style="background-color: #007BFF; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 5px;">
+                    <a href="https://www.imdb.com/find?q={{ data[i] }}" target="_blank" style="text-decoration: none; color: wheat; display: block;">
+                        View on IMDb
+                    </a>
+                </button>
+                
+                <!-- Book Button -->
+                <button style="background-color: #28a745; color: #ffffff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 5px;">
+                    <a href="{{ links[i] }}" style="text-decoration: none; color: #ffffff; display: block;">
+                        Book Now
+                    </a>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
